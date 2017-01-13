@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'maven-publish'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+tasks.withType(JavaCompile) {
+    options.incremental = true
+}
+
+
+def toolsJar = project.findProperty('toolsJar') ?: project.file("${System.getenv('JAVA_HOME')}/lib/tools.jar")
+if (!toolsJar) {
+    throw new GradleException("Cannot find tools.jar. Either use -PtoolsJar=/path/to/tools.jar or set JAVA_HOME to a JDK which includes tools.jar")
+}
+
+dependencies {
+    implementation files(toolsJar)
+}
+
+group = 'org.gradle.plugins'
+version = '0.1.0-SNAPSHOT'
+
+publishing {
+    publications {
+        plugin(MavenPublication) {
+            from components.java
+        }
+    }
+}
