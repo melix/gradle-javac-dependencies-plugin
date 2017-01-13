@@ -13,7 +13,9 @@ for each file. The dependencies are meant in terms of class dependencies.
 This requires JDK 8+.
 
 ```
-javac -Xplugin:ClassDependenciesPlugin -processorpath $PLUGIN_HOME/build/libs/gradle-javac-dependencies-plugin-0.1.0.jar *.java
+javac -Xplugin:ClassDependenciesPlugin 
+      -processorpath $PLUGIN_HOME/build/libs/gradle-javac-dependencies-plugin-0.1.0.jar 
+      *.java
 ```
 
 This will generate an `analysis.txt` file containing, for each compiled class, its dependencies:
@@ -28,7 +30,9 @@ I2:I
 
 It is possible to set the path to the generated analysis file using plugin arguments:
 
+```
+javac -Xplugin:"ClassDependenciesPlugin build/foo/txt" 
+-processorpath ...
+*.java
+```
 
-```
-javac -Xplugin:"ClassDependenciesPlugin build/foo/txt" -processorpath $PLUGIN_HOME/build/libs/g$
-```
